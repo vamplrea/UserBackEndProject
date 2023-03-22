@@ -1,12 +1,15 @@
 package com.model;
 
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
-
+@Entity
+@Table(name = "users")
 public class User {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private String firstName;
@@ -21,8 +24,7 @@ public class User {
         super();
     }
 
-    public User(Long id, String firstName, String lastName, Integer age, String country) {
-        this.id = id;
+    public User( String firstName, String lastName, Integer age, String country) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -33,9 +35,6 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
