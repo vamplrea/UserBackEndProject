@@ -3,8 +3,10 @@ package com.service.imp;
 import com.model.User;
 import com.repository.UserRepository;
 import com.service.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
 
@@ -22,7 +25,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
 
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> findAll(){
@@ -40,6 +44,7 @@ public class UserServiceImpl implements UserService {
     public void add(User user) {
         //user.setId(COUNTER++);
         //usersList.add(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
     }
@@ -70,6 +75,12 @@ public class UserServiceImpl implements UserService {
 
             if(user.getFirstName() != null ){
                 existingUser.setFirstName(user.getFirstName());
+            }
+            if(user.getUsername() != null ){
+                existingUser.setUsername(user.getUsername());
+            }
+            if(user.getPassword() != null ){
+                existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
             }
             if(user.getLastName() != null){
                 existingUser.setLastName(user.getLastName());

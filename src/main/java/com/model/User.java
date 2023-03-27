@@ -16,6 +16,10 @@ public class User {
     @NotNull
     private String lastName;
     @NotNull
+    private String username;
+    @NotNull
+    private String password;
+    @NotNull
     private Integer age;
     @NotNull
     private String country;
@@ -24,11 +28,29 @@ public class User {
         super();
     }
 
-    public User( String firstName, String lastName, Integer age, String country) {
+    public User( String firstName, String lastName, String username, String password, Integer age, String country) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
+        this.password = password;
         this.age = age;
         this.country = country;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {
@@ -73,12 +95,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(age, user.age) && Objects.equals(country, user.country);
+        return Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(age, user.age) && Objects.equals(country, user.country);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, age, country);
+        return Objects.hash(id, firstName, lastName, username, password, age, country);
     }
 
     @Override
@@ -87,6 +109,8 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", age=" + age +
                 ", country='" + country + '\'' +
                 '}';
